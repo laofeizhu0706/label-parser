@@ -1,0 +1,20 @@
+package com.laofeizhu;
+
+import com.laofeizhu.*;
+import com.laofeizhu.model.*;
+
+rule "label rule1"
+when
+    r : Result( )
+    l : BaseUserVo(label=="user_label_2" )
+then
+    r.add("product_label_1");
+end
+
+rule "label rule2"
+when
+    r : Result( )
+    l : BaseUserVo( label=="user_label_1" )
+then
+    r.add("product_label_3");
+end

@@ -1,0 +1,2 @@
+user_label_1|product_label_1,product_label_3
+user_label_2|product_label_3,product_label_2

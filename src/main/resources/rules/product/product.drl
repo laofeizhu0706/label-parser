@@ -1,0 +1,15 @@
+package com.laofeizhu;
+
+import com.laofeizhu.model.Result;
+import com.laofeizhu.model.BaseUserVo;
+import com.laofeizhu.model.BaseProductVo;
+import com.laofeizhu.data.ICommonContent;
+
+rule "product rule"
+when
+    r : Result( )
+    p : BaseProductVo()
+    l : BaseUserVo( p.getLabels() contains l.label )
+then
+    r.addProduct(p);
+end
