@@ -24,11 +24,11 @@ public class LabelRecommendService implements IRecommendService {
     private Boolean isReload;
 
 
-    private List<BaseProductVo> baseProductVos;
+    private List<? extends BaseProductVo> baseProductVos;
 
     private static final String PRODUCT_DRL_PATH = "rules/product/product.drl";
 
-    protected LabelRecommendService(String filePath, List<BaseProductVo> baseProductVos, Boolean isReload) {
+    protected LabelRecommendService(String filePath, List<? extends BaseProductVo> baseProductVos, Boolean isReload) {
         this.filePath = filePath;
         this.baseProductVos = baseProductVos;
         this.isReload = Objects.isNull(isReload) ? false : isReload;
