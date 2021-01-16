@@ -1,8 +1,10 @@
 package com.laofeizhu.service.impl;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IoUtil;
 import com.google.common.collect.Lists;
 import com.laofeizhu.config.KieSessionHelper;
+import com.laofeizhu.config.RuleLoader;
 import com.laofeizhu.data.ICommonContent;
 import com.laofeizhu.data.impl.DefaultCommonContent;
 import com.laofeizhu.model.BaseProductVo;
@@ -11,6 +13,7 @@ import com.laofeizhu.model.Result;
 import com.laofeizhu.service.IRecommendService;
 import org.kie.api.runtime.KieSession;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,7 +41,16 @@ public class CommonRecommendService implements IRecommendService {
         this.filePath = filePath;
         if (Objects.isNull(content)) {
             DefaultCommonContent defaultCommonContent = new DefaultCommonContent();
-            List<String> labels = FileUtil.readUtf8Lines(LABEL_PATH);
+            List<String> labels = Lists.newArrayList();
+            try {
+                labels = FileUtil.readUtf8Lines(LABEL_PATH);
+            } catch (Exception e) {
+                try (InputStream stream = RuleLoader.class.getClassLoader().getResourceAsStream(LABEL_PATH)) {
+                    labels = IoUtil.readUtf8Lines(stream, labels);
+                } catch (Exception ex) {
+                    throw new RuntimeException("no such file");
+                }
+            }
             labels.forEach(labelString -> {
                 String[] label = labelString.split("\\|");
                 String[] userLabels = label[0].split(",");
@@ -82,6 +94,7 @@ public class CommonRecommendService implements IRecommendService {
             List<String> productLabels = listMatchingLabel(userLabels);
             if (Objects.nonNull(productLabels) &&
                     productLabels.size() > 0) {
+                System.out.println(PRODUCT_DRL_PATH);
                 KieSession kieSession = KieSessionHelper.getKieSessionByPath(PRODUCT_DRL_PATH);
                 Result result = new Result();
                 for (String productLabel : productLabels) {

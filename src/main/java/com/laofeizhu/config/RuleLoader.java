@@ -1,6 +1,7 @@
 package com.laofeizhu.config;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IoUtil;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
@@ -11,6 +12,7 @@ import org.kie.api.builder.model.KieModuleModel;
 import org.kie.api.runtime.KieContainer;
 
 import java.io.File;
+import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Objects;
@@ -108,7 +110,21 @@ public class RuleLoader {
         kieBaseModel.newKieSessionModel(buildKsessionName(name));
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
         String fullPath = MessageFormat.format("src/main/resources/rules/scene_{0}/rule.drl", name);
-        String content = FileUtil.readUtf8String(path);
+        String content = null;
+        try {
+            content = FileUtil.readUtf8String(path);
+        } catch (Exception e) {
+            try (InputStream stream = RuleLoader.class.getClassLoader().getResourceAsStream(path)) {
+                if (Objects.nonNull(stream)) {
+                    content = IoUtil.readUtf8(stream);
+                }
+            } catch (Exception ex) {
+                throw new RuntimeException("no such file");
+            }
+        }
+        if (Objects.isNull(content) || "".equals(content.trim())) {
+            throw new RuntimeException("no such file");
+        }
         kieFileSystem.write(fullPath, content);
         kieFileSystem.writeKModuleXML(kieModuleModel.toXML());
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem).buildAll();
