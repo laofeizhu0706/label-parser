@@ -12,7 +12,23 @@ import java.util.List;
  */
 public interface IRecommendService {
 
+    /**
+     * 新增商品标签接口
+     * @param baseProductVos
+     */
+    void addProductLabel(List<BaseProductVo> baseProductVos);
+
+    /**
+     * 根据用户标签，匹配商品标签
+     * @param userLabels
+     * @return
+     */
     List<String> listMatchingLabel(List<String> userLabels);
 
+    /**
+     * 根据用户标签，匹配商品结果
+     * @param userLabels
+     * @return
+     */
     List<BaseProductVo> listMatchingProduct(List<String> userLabels);
 }

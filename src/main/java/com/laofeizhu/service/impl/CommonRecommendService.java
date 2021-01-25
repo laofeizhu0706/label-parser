@@ -70,6 +70,11 @@ public class CommonRecommendService implements IRecommendService {
     }
 
     @Override
+    public void addProductLabel(List<BaseProductVo> baseProductVos) {
+        this.baseProductVos.addAll(baseProductVos);
+    }
+
+    @Override
     public List<String> listMatchingLabel(List<String> userLabels) {
         if (Objects.nonNull(userLabels) && userLabels.size() > 0) {
             KieSession kieSession = KieSessionHelper.getKieSessionByPath(filePath, isReload);

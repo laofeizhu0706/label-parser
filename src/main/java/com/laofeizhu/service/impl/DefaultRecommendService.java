@@ -58,7 +58,7 @@ public class DefaultRecommendService implements IRecommendService {
         return build(false);
     }
 
-    public static IRecommendService build(List<? extends BaseProductVo> baseProductVos) {
+    public static IRecommendService build(List<BaseProductVo> baseProductVos) {
         return build(DEFAULT_LABEL_PATH, baseProductVos, false);
     }
 
@@ -74,12 +74,17 @@ public class DefaultRecommendService implements IRecommendService {
         return build(filePath, null, isReload);
     }
 
-    public static IRecommendService build(String filePath, List<? extends BaseProductVo> baseProductVos) {
+    public static IRecommendService build(String filePath, List<BaseProductVo> baseProductVos) {
         return build(filePath, baseProductVos, false);
     }
 
-    public static IRecommendService build(String filePath, List<? extends BaseProductVo> baseProductVos, Boolean isReload) {
+    public static IRecommendService build(String filePath, List<BaseProductVo> baseProductVos, Boolean isReload) {
         return new LabelRecommendService(filePath, baseProductVos, isReload);
+    }
+
+    @Override
+    public void addProductLabel(List<BaseProductVo> baseProductVos) {
+
     }
 
     @Override
