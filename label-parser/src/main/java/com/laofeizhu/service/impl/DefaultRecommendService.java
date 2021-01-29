@@ -1,5 +1,6 @@
 package com.laofeizhu.service.impl;
 
+import com.google.common.collect.Lists;
 import com.laofeizhu.data.ICommonContent;
 import com.laofeizhu.model.BaseProductVo;
 import com.laofeizhu.service.IRecommendService;
@@ -22,7 +23,7 @@ public class DefaultRecommendService implements IRecommendService {
         return buildCommon(DEFAULT_COMMON_PATH, false);
     }
 
-    public static IRecommendService buildCommon(List<BaseProductVo> baseProductVos) {
+    public static IRecommendService buildCommon(List<? extends BaseProductVo> baseProductVos) {
         return buildCommon(DEFAULT_COMMON_PATH, baseProductVos, false);
     }
 
@@ -38,7 +39,7 @@ public class DefaultRecommendService implements IRecommendService {
         return buildCommon(filePath, null, isReload);
     }
 
-    public static IRecommendService buildCommon(String filePath, List<BaseProductVo> baseProductVos) {
+    public static IRecommendService buildCommon(String filePath, List<? extends BaseProductVo> baseProductVos) {
         return buildCommon(filePath, baseProductVos, false);
     }
 
@@ -46,11 +47,11 @@ public class DefaultRecommendService implements IRecommendService {
         return buildCommon(content, null);
     }
 
-    public static IRecommendService buildCommon(String filePath, List<BaseProductVo> baseProductVos, Boolean isReload) {
+    public static IRecommendService buildCommon(String filePath, List<? extends BaseProductVo> baseProductVos, Boolean isReload) {
         return new CommonRecommendService(filePath, null, baseProductVos, isReload);
     }
 
-    public static IRecommendService buildCommon(ICommonContent content, List<BaseProductVo> baseProductVos) {
+    public static IRecommendService buildCommon(ICommonContent content, List<? extends BaseProductVo> baseProductVos) {
         return new CommonRecommendService(DEFAULT_COMMON_PATH, content, baseProductVos, true);
     }
 
@@ -58,7 +59,7 @@ public class DefaultRecommendService implements IRecommendService {
         return build(false);
     }
 
-    public static IRecommendService build(List<BaseProductVo> baseProductVos) {
+    public static IRecommendService build(List<? extends BaseProductVo> baseProductVos) {
         return build(DEFAULT_LABEL_PATH, baseProductVos, false);
     }
 
@@ -70,20 +71,28 @@ public class DefaultRecommendService implements IRecommendService {
         return build(filePath, false);
     }
 
+    public static IRecommendService buildByVersion(String version, String drlContent) {
+        return buildByVersion(version, drlContent, Lists.newArrayList());
+    }
+
+    public static IRecommendService buildByVersion(String version, String drlContent, List<? extends BaseProductVo> baseProductVos) {
+        return new LabelRecommendService(version, drlContent, baseProductVos);
+    }
+
     public static IRecommendService build(String filePath, Boolean isReload) {
         return build(filePath, null, isReload);
     }
 
-    public static IRecommendService build(String filePath, List<BaseProductVo> baseProductVos) {
+    public static IRecommendService build(String filePath, List<? extends BaseProductVo> baseProductVos) {
         return build(filePath, baseProductVos, false);
     }
 
-    public static IRecommendService build(String filePath, List<BaseProductVo> baseProductVos, Boolean isReload) {
+    public static IRecommendService build(String filePath, List<? extends BaseProductVo> baseProductVos, Boolean isReload) {
         return new LabelRecommendService(filePath, baseProductVos, isReload);
     }
 
     @Override
-    public void addProductLabel(List<BaseProductVo> baseProductVos) {
+    public void addProductLabel(List<? extends BaseProductVo> baseProductVos) {
 
     }
 
@@ -93,7 +102,12 @@ public class DefaultRecommendService implements IRecommendService {
     }
 
     @Override
-    public List<BaseProductVo> listMatchingProduct(List<String> userLabels) {
+    public List<? extends BaseProductVo> listMatchingProduct(List<String> userLabels) {
+        return null;
+    }
+
+    @Override
+    public String getContent() {
         return null;
     }
 

@@ -16,7 +16,7 @@ public interface IRecommendService {
      * 新增商品标签接口
      * @param baseProductVos
      */
-    void addProductLabel(List<BaseProductVo> baseProductVos);
+    void addProductLabel(List<? extends BaseProductVo> baseProductVos);
 
     /**
      * 根据用户标签，匹配商品标签
@@ -30,5 +30,8 @@ public interface IRecommendService {
      * @param userLabels
      * @return
      */
-    List<BaseProductVo> listMatchingProduct(List<String> userLabels);
+    List<? extends BaseProductVo> listMatchingProduct(List<String> userLabels);
+
+    String getContent();
+
 }

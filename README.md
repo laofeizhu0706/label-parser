@@ -2,34 +2,57 @@
 
 ## 简介
 
-实现规则动态配置获取，把规则模块抽离系统， 以规则脚本的形式存放在文件中，使得规则的变更不需要修正代码重启机器就可以立即在线上环境生效。 基于标签规则的实现。
+实现规则动态配置获取，把规则模块抽离系统， 以规则脚本的形式存放在数据库中，使得规则的变更不需要修正代码重启机器就可以立即在线上环境生效。 基于标签规则的实现。
 
-## Latest Version: 
-
-```xml
-下载项目，先使用mvn clean install安装到本地仓库，然后在项目导入以下maven
-<dependency>
-    <groupId>com.laofeizhu</groupId>
-    <artifactId>label-parser</artifactId>
-    <version>1.0</version>
-</dependency>
-```
 
 ## 使用
 
-```java
-public class Main {
-    public static void main(String[] args) {
-        List<BaseProductVo> productVos = Lists.newArrayList(new BaseProductVo("1", Lists.newArrayList("product_label_2")),
-                new BaseProductVo("2", Lists.newArrayList("product_label_1")),new BaseProductVo("3", Lists.newArrayList("product_label_3")));
-        //支持动态配置规则模板（暂不支持excel）
-        IRecommendService service = DefaultRecommendService.build(productVos);
-        //获取跟用户相匹配的商品（如果构建的时候没有传入全部商品，则获取为空）
-        List<BaseProductVo> products = service.listMatchingProduct(Lists.newArrayList("user_label_1"));
-        //获取跟用户相匹配的标签
-        List<String> productLabels = service.listMatchingLabel(Lists.newArrayList("user_label_1"));
-        System.out.println(products);
-        System.out.println(productLabels);
-    }
-}
+```
+#查找标签和查找商品的接口（当前无安全策略）
+http://127.0.0.1:9981/searchProductLabel
+http://127.0.0.1:9981/searchProduct 
+```
+
+## sql导入
+```sql
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for label_drl
+-- ----------------------------
+DROP TABLE IF EXISTS `label_drl`;
+CREATE TABLE `label_drl` (
+  `id` int NOT NULL,
+  `label_version` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `enable` bit(2) NOT NULL DEFAULT b'0',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='标签drl文件存储表';
+
+-- ----------------------------
+-- Records of label_drl
+-- ----------------------------
+BEGIN;
+INSERT INTO `label_drl` VALUES (1, 'v1.0', 'package com.laofeizhu;\n\nimport com.laofeizhu.*;\nimport com.laofeizhu.model.*;\n\nrule \"label rule1\"\nwhen\n    r : Result( )\n    l : BaseUserVo(label==\"user_label_2\" )\nthen\n    r.add(\"product_label_1\");\nend\n\nrule \"label rule2\"\nwhen\n    r : Result( )\n    l : BaseUserVo( label==\"user_label_1\" )\nthen\n    r.add(\"product_label_3\");\nend', '测试1', b'01', NULL, NULL);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for label_drl_history
+-- ----------------------------
+DROP TABLE IF EXISTS `label_drl_history`;
+CREATE TABLE `label_drl_history` (
+  `id` int NOT NULL,
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `label_version` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='历史记录表';
+
+SET FOREIGN_KEY_CHECKS = 1;
 ```

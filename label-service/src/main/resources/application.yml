@@ -1,0 +1,15 @@
+server:
+  port: 9981
+spring:
+  datasource:
+    name: label_service
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/label_service?characterEncoding=utf8&useSSL=false
+    username: root
+    password:
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis-plus:
+  #默认扫描mapper.xml的目录
+  mapper-locations: classpath*:/mapper/**/*.xml
+log:
+  path: ~/logs/

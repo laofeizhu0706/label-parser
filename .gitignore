@@ -8,8 +8,9 @@ gen
 /.project
 /.settings/
 /.springBeans
-/target/
-/.gitignore
+target/
+.gitignore
 /user-profile-analysis.iml
-/.idea
+.idea/
 .DS_Store
+.log
