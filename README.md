@@ -20,3 +20,8 @@ http://127.0.0.1:9981/searchProduct
 ```
 
 ## 部署
+bash start.sh
+
+## 账号密码
+admin
+123456
