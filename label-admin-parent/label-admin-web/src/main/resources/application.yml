@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: local
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
+swagger:
+  production: false
+  basic:
+    enable: true
+    username: test
+    password: 123456
+#mybatis plus 设置
+mybatis-plus:
+  mapper-locations: classpath*:com/laofeizhu/admin/modules/**/xml/*Mapper.xml
+  typeEnumsPackage: com.laofeizhu.oms.modules.*.enums
+cos:
+  secretId: AKIDHNDn8D06h27wWoFb7NWP3f291eIweUR9
+  secretKey: cz8QSIvOfgU3TeZMtXw5yc2EDxTjowoP
+  regionName: ap-shanghai
+  bucketName: common-cos-1259627079
+log:
+  path: /data/logs/tomcat/label-admin/web

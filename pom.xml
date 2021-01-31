@@ -12,5 +12,8 @@
     <modules>
         <module>label-parser</module>
         <module>label-service</module>
+        <module>label-admin-parent</module>
+        <module>label-admin-parent/label-admin-common</module>
+        <module>label-admin-parent/label-admin-web</module>
     </modules>
 </project>
