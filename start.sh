@@ -6,6 +6,7 @@ function log() {
 
 JAVA_OPS="-Xms1024m -Xmx1024m"
 NGINX_STATIC_DATA_PATH = "/data"
+environment="dev"
 current_path = `pwd`
 log "start"
 git pull origin master
@@ -19,7 +20,7 @@ if [ -n "${pid}" ];then
     kill -9 $pid
     print_log "存在${jar_name}的进程 ${pid}"
 fi
-nohup java -jar -server ${JAVA_OPS} ${jar_name}.jar --spring.profiles.active=${environment} >/logs/${jar}-run.log 2>&1 &
+nohup java -jar -server ${JAVA_OPS} ${jar_name}.jar --spring.profiles.active=${environment} >/logs/${jar_name}-run.log 2>&1 &
 log "end label-service.jar"
 
 # 部署 label-admin-web
@@ -31,7 +32,7 @@ if [ -n "${pid}" ];then
     kill -9 $pid
     print_log "存在${jar_name}的进程 ${pid}"
 fi
-nohup java -jar -server ${JAVA_OPS} ${jar_name}.jar --spring.profiles.active=${environment} >/logs/${jar}-run.log 2>&1 &
+nohup java -jar -server ${JAVA_OPS} ${jar_name}.jar --spring.profiles.active=${environment} >/logs/${jar_name}-run.log 2>&1 &
 log "end label-admin-web.jar"
 
 
