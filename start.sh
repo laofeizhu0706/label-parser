@@ -5,9 +5,8 @@ function log() {
 }
 
 JAVA_OPS="-Xms1024m -Xmx1024m"
-NGINX_STATIC_DATA_PATH = "/data"
+NGINX_STATIC_DATA_PATH="/data"
 environment="dev"
-current_path = `pwd`
 log "start"
 git pull origin master
 mvn clean install -Dmaven.test.skip=true
