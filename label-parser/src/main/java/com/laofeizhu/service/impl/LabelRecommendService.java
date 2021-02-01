@@ -47,7 +47,8 @@ public class LabelRecommendService implements IRecommendService {
     @Override
     public void addProductLabel(List<? extends BaseProductVo> productVos) {
         if (this.baseProductVos != null && this.baseProductVos.size() > 0) {
-            this.baseProductVos.addAll((List) Sets.newHashSet(productVos));
+            this.baseProductVos.addAll((List)productVos);
+            this.baseProductVos = Lists.newArrayList(Sets.newHashSet(this.baseProductVos));
         } else {
             this.baseProductVos = Lists.newArrayList(Sets.newHashSet(productVos));
         }
