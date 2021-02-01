@@ -37,10 +37,7 @@ log "end label-admin-web.jar"
 
 # 部署  label-admin-vue
 log "start label-admin-vue"
-cd ./label-admin-parent/label-admin/
-yarn install
-yarn build
-cp dist ${NGINX_STATIC_DATA_PATH}/
+cp ./label-admin-parent/label-admin/dist ${NGINX_STATIC_DATA_PATH}/
 log "end label-admin-vue"
 
 
