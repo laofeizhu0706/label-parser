@@ -23,11 +23,7 @@ import com.laofeizhu.admin.modules.system.service.ISysRolePermissionService;
 import com.laofeizhu.admin.modules.system.util.PermissionDataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -236,7 +232,7 @@ public class SysPermissionController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/queryTreeList", method = RequestMethod.GET)
+	@GetMapping(value = "/queryTreeList")
 	public Result<Map<String, Object>> queryTreeList() {
 		Result<Map<String, Object>> result = new Result<>();
 		// 全部权限ids
@@ -251,7 +247,6 @@ public class SysPermissionController {
 			}
 			List<TreeModel> treeList = new ArrayList<>();
 			getTreeModelList(treeList, list, null);
-
 			Map<String, Object> resMap = new HashMap<String, Object>();
 			resMap.put("treeList", treeList); // 全部树节点数据
 			resMap.put("ids", ids);// 全部树ids

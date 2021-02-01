@@ -32,5 +32,15 @@ public class ListenerLabelDrlHandler {
                 }
             }
         }).start();
+        new Thread(()->{
+            for(;;) {
+                try {
+                    recommendService.refreshProduct();
+                    Thread.sleep(10000L);
+                } catch (Exception e) {
+                    log.error("recommendService refresh error", e);
+                }
+            }
+        }).start();
     }
 }

@@ -1,5 +1,7 @@
 package com.laofeizhu.admin.modules.system.model;
 
+import com.laofeizhu.admin.modules.label.entity.LabelProductTag;
+import com.laofeizhu.admin.modules.label.entity.LabelUserTag;
 import com.laofeizhu.admin.modules.system.entity.SysPermission;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -89,6 +91,32 @@ public class TreeModel implements Serializable {
 		this.isLeaf = permission.isLeaf();
 		this.label = permission.getName();
 		if(!permission.isLeaf()) {
+			this.children = new ArrayList<TreeModel>();
+		}
+	}
+
+	public TreeModel(LabelUserTag labelUserTag) {
+		this.key = labelUserTag.getId();
+		this.parentId = labelUserTag.getParentId();
+		this.title = labelUserTag.getName();
+		this.slotTitle =  labelUserTag.getName();
+		this.value = labelUserTag.getId();
+		this.isLeaf = labelUserTag.getLeaf();
+		this.label = labelUserTag.getName();
+		if(!labelUserTag.getLeaf()) {
+			this.children = new ArrayList<TreeModel>();
+		}
+	}
+
+	public TreeModel(LabelProductTag labelProductTag) {
+		this.key = labelProductTag.getId();
+		this.parentId = labelProductTag.getParentId();
+		this.title = labelProductTag.getName();
+		this.slotTitle =  labelProductTag.getName();
+		this.value = labelProductTag.getId();
+		this.isLeaf = labelProductTag.getLeaf();
+		this.label = labelProductTag.getName();
+		if(!labelProductTag.getLeaf()) {
 			this.children = new ArrayList<TreeModel>();
 		}
 	}

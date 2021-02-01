@@ -13,4 +13,6 @@ public interface RecommendService {
     List<IRecommendService> listRecommends();
 
     void refresh();
+
+    void refreshProduct();
 }

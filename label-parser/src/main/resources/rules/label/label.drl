@@ -18,3 +18,11 @@ when
 then
     r.add("product_label_3");
 end
+
+rule "label rule3"
+when
+    r : Result( )
+    l : BaseUserVo( label=="user_label_1" )
+then
+    r.add("测试1");
+end

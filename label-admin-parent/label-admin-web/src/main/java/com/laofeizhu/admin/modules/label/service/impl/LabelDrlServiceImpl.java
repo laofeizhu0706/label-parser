@@ -1,11 +1,10 @@
 package com.laofeizhu.admin.modules.label.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laofeizhu.admin.modules.label.entity.LabelDrl;
 import com.laofeizhu.admin.modules.label.mapper.LabelDrlMapper;
 import com.laofeizhu.admin.modules.label.service.ILabelDrlService;
 import org.springframework.stereotype.Service;
-
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
  * @Description: 标签drl文件表

@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @Slf4j
-public class TestController {
+public class LabelController {
 
 
     @Autowired
@@ -43,7 +43,7 @@ public class TestController {
     @PostMapping("/searchProduct")
     public Result searchProduct(@RequestBody SearchRequest request) {
         try {
-            return Result.success(labelDrlService.searchProductLabel(request.getLabels()));
+            return Result.success(labelDrlService.searchProduct(request.getLabels()));
         } catch (Exception e) {
             log.error("searchProductLabel error", e);
             return Result.fail("searchProductLabel error");
