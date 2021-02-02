@@ -29,7 +29,6 @@ public class DrlRecommendServiceImpl implements RecommendService {
 
     private List<IRecommendService> recommendServices;
 
-
     @Autowired
     private LabelDrlMapper labelDrlMapper;
 

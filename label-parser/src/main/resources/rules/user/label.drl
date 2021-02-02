@@ -1,0 +1,14 @@
+package com.laofeizhu;
+
+import com.laofeizhu.*;
+import com.laofeizhu.model.*;
+
+rule "label rule1"
+when
+    r : Result( )
+    sg : UserLabelVo(label=="身高" && Integer.valueOf(value)>155 && Integer.valueOf(value)<=190 )
+    tz : UserLabelVo(label=="年龄" && Integer.valueOf(value)>=30 && Integer.valueOf(value)<=40 )
+    sex : UserLabelVo(label=="性别" && value=="男" )
+then
+    r.add("高收入");
+end

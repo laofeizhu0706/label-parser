@@ -5,7 +5,9 @@ import com.google.common.collect.Sets;
 import com.laofeizhu.label.dto.TempProduct;
 import com.laofeizhu.label.service.LabelDrlService;
 import com.laofeizhu.label.service.RecommendService;
+import com.laofeizhu.model.UserLabelVo;
 import com.laofeizhu.service.IRecommendService;
+import com.laofeizhu.service.impl.DefaultLabelMatchingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.annotation.Order;
@@ -46,5 +48,6 @@ public class LabelDrlServiceImpl implements LabelDrlService {
         }
         return Lists.newArrayList(productLabelSets);
     }
+
 
 }
