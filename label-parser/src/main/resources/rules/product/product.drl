@@ -11,5 +11,5 @@ when
     p : BaseProductVo()
     l : BaseUserVo( p.getLabels() contains l.label )
 then
-    r.addProduct(p);
+    r.add(p);
 end

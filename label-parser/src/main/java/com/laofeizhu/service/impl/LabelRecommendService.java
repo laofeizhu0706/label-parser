@@ -7,6 +7,7 @@ import com.laofeizhu.enums.ReadFromType;
 import com.laofeizhu.model.BaseProductVo;
 import com.laofeizhu.model.BaseUserVo;
 import com.laofeizhu.model.Result;
+import com.laofeizhu.model.UserLabelVo;
 import com.laofeizhu.service.IRecommendService;
 import org.kie.api.runtime.KieSession;
 
@@ -45,7 +46,7 @@ public class LabelRecommendService implements IRecommendService {
     }
 
     @Override
-    public void addProductLabel(List<? extends BaseProductVo> productVos) {
+    public <T extends BaseProductVo> void addProductLabel(List<T> productVos) {
         if (this.baseProductVos != null && this.baseProductVos.size() > 0) {
             this.baseProductVos.addAll((List)productVos);
             this.baseProductVos = Lists.newArrayList(Sets.newHashSet(this.baseProductVos));
@@ -55,7 +56,7 @@ public class LabelRecommendService implements IRecommendService {
     }
 
     @Override
-    public List<String> listMatchingLabel(List<String> userLabels) {
+    public List<String> listMatchingLabel(List<UserLabelVo> userLabels) {
         if (Objects.nonNull(userLabels) && userLabels.size() > 0) {
             KieSession kieSession = null;
             switch (this.fromType) {
@@ -69,10 +70,10 @@ public class LabelRecommendService implements IRecommendService {
                     kieSession = KieSessionHelper.getKieSessionByVersion(version);
                     break;
             }
-            for (String userLabel : userLabels) {
-                kieSession.insert(new BaseUserVo(userLabel));
+            for (UserLabelVo userLabel : userLabels) {
+                kieSession.insert(userLabel);
             }
-            Result result = new Result();
+            Result<String> result = new Result<String>();
             kieSession.insert(result);
             kieSession.fireAllRules();
             kieSession.dispose();
@@ -83,14 +84,14 @@ public class LabelRecommendService implements IRecommendService {
     }
 
     @Override
-    public List<BaseProductVo> listMatchingProduct(List<String> userLabels) {
+    public <T extends BaseProductVo> List<T> listMatchingProduct(List<UserLabelVo> userLabels) {
         if (Objects.nonNull(baseProductVos) &&
                 baseProductVos.size() > 0) {
             List<String> productLabels = listMatchingLabel(userLabels);
             if (Objects.nonNull(productLabels) &&
                     productLabels.size() > 0) {
                 KieSession kieSession = KieSessionHelper.getKieSessionByPath(PRODUCT_DRL_PATH);
-                Result result = new Result();
+                Result<T> result = new Result<T>();
                 for (String productLabel : productLabels) {
                     kieSession.insert(new BaseUserVo(productLabel));
                 }
@@ -100,7 +101,7 @@ public class LabelRecommendService implements IRecommendService {
                 kieSession.insert(result);
                 kieSession.fireAllRules();
                 kieSession.dispose();
-                return result.getProductResults();
+                return result.getResults();
             }
         }
         return Lists.newArrayList();

@@ -1,6 +1,7 @@
 package com.laofeizhu.label.service;
 
 import com.laofeizhu.label.dto.TempProduct;
+import com.laofeizhu.model.UserLabelVo;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface LabelDrlService {
 
-    List<String> searchProductLabel(List<String> userLabel);
+    List<String> searchProductLabel(List<UserLabelVo> userLabel);
 
-    List<TempProduct> searchProduct(List<String> userLabel);
+    List<TempProduct> searchProduct(List<UserLabelVo> userLabel);
 }

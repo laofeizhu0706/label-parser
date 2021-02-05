@@ -1,0 +1,12 @@
+package com.laofeizhu;
+
+import com.laofeizhu.*;
+import com.laofeizhu.model.*;
+
+rule "label rule1"
+when
+    r : Result( )
+    {0}
+then
+    r.add("{1}");
+end

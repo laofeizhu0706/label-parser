@@ -11,4 +11,7 @@ import com.laofeizhu.admin.modules.label.entity.LabelUserSubTag;
  */
 public interface ILabelUserSubTagService extends JeecgService<LabelUserSubTag> {
 
+    void addTag(LabelUserSubTag labelUserSubTag);
+
+    void updateTag(LabelUserSubTag labelUserSubTag);
 }

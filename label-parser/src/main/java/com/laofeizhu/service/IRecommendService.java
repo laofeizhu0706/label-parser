@@ -1,6 +1,7 @@
 package com.laofeizhu.service;
 
 import com.laofeizhu.model.BaseProductVo;
+import com.laofeizhu.model.UserLabelVo;
 
 import java.util.List;
 
@@ -16,21 +17,21 @@ public interface IRecommendService {
      * 新增商品标签接口
      * @param baseProductVos
      */
-    void addProductLabel(List<? extends BaseProductVo> baseProductVos);
+    <T extends BaseProductVo>  void addProductLabel(List<T> baseProductVos);
 
     /**
      * 根据用户标签，匹配商品标签
      * @param userLabels
      * @return
      */
-    List<String> listMatchingLabel(List<String> userLabels);
+    List<String> listMatchingLabel(List<UserLabelVo> userLabels);
 
     /**
      * 根据用户标签，匹配商品结果
      * @param userLabels
      * @return
      */
-    List<? extends BaseProductVo> listMatchingProduct(List<String> userLabels);
+    <T extends BaseProductVo> List<T> listMatchingProduct(List<UserLabelVo> userLabels);
 
     String getContent();
 

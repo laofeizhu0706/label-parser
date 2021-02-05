@@ -13,6 +13,9 @@ public class BaseUserVo extends BaseModel {
 
     private String label;
 
+    public BaseUserVo() {
+    }
+
     public BaseUserVo(String label) {
         this.label = label;
     }
@@ -24,4 +27,5 @@ public class BaseUserVo extends BaseModel {
     public void setLabel(String label) {
         this.label = label;
     }
+
 }

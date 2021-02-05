@@ -22,17 +22,17 @@ import lombok.experimental.Accessors;
 public class SysMessageTemplate extends JeecgEntity{
 	/**模板CODE*/
 	@Excel(name = "模板CODE", width = 15)
-	private java.lang.String templateCode;
+	private String templateCode;
 	/**模板标题*/
 	@Excel(name = "模板标题", width = 30)
-	private java.lang.String templateName;
+	private String templateName;
 	/**模板内容*/
 	@Excel(name = "模板内容", width = 50)
-	private java.lang.String templateContent;
+	private String templateContent;
 	/**模板测试json*/
 	@Excel(name = "模板测试json", width = 15)
-	private java.lang.String templateTestJson;
+	private String templateTestJson;
 	/**模板类型*/
 	@Excel(name = "模板类型", width = 15)
-	private java.lang.String templateType;
+	private String templateType;
 }

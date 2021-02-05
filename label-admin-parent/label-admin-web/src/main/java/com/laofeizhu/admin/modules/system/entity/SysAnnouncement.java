@@ -26,17 +26,17 @@ public class SysAnnouncement implements Serializable {
      * id
      */
     @TableId(type = IdType.UUID)
-    private java.lang.String id;
+    private String id;
     /**
      * 标题
      */
     @Excel(name = "标题", width = 15)
-    private java.lang.String titile;
+    private String titile;
     /**
      * 内容
      */
     @Excel(name = "内容", width = 30)
-    private java.lang.String msgContent;
+    private String msgContent;
     /**
      * 开始时间
      */
@@ -55,32 +55,32 @@ public class SysAnnouncement implements Serializable {
      * 发布人
      */
     @Excel(name = "发布人", width = 15)
-    private java.lang.String sender;
+    private String sender;
     /**
      * 优先级（L低，M中，H高）
      */
     @Excel(name = "优先级", width = 15, dicCode = "priority")
     @Dict(dicCode = "priority")
-    private java.lang.String priority;
+    private String priority;
     
     /**
      * 消息类型1:通知公告2:系统消息
      */
     @Excel(name = "消息类型", width = 15, dicCode = "msg_category")
     @Dict(dicCode = "msg_category")
-    private java.lang.String msgCategory;
+    private String msgCategory;
     /**
      * 通告对象类型（USER:指定用户，ALL:全体用户）
      */
     @Excel(name = "通告对象类型", width = 15, dicCode = "msg_type")
     @Dict(dicCode = "msg_type")
-    private java.lang.String msgType;
+    private String msgType;
     /**
      * 发布状态（0未发布，1已发布，2已撤销）
      */
     @Excel(name = "发布状态", width = 15, dicCode = "send_status")
     @Dict(dicCode = "send_status")
-    private java.lang.String sendStatus;
+    private String sendStatus;
     /**
      * 发布时间
      */
@@ -98,11 +98,11 @@ public class SysAnnouncement implements Serializable {
     /**
      * 删除状态（0，正常，1已删除）
      */
-    private java.lang.String delFlag;
+    private String delFlag;
     /**
      * 创建人
      */
-    private java.lang.String createBy;
+    private String createBy;
     /**
      * 创建时间
      */
@@ -112,7 +112,7 @@ public class SysAnnouncement implements Serializable {
     /**
      * 更新人
      */
-    private java.lang.String updateBy;
+    private String updateBy;
     /**
      * 更新时间
      */
@@ -122,5 +122,5 @@ public class SysAnnouncement implements Serializable {
     /**
      * 指定用户
      **/
-    private java.lang.String userIds;
+    private String userIds;
 }

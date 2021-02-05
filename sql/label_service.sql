@@ -3693,4 +3693,46 @@ INSERT INTO `sys_user_role` VALUES ('1256487210544361473', 'a75d45a015c44384a044
 INSERT INTO `sys_user_role` VALUES ('1281490128242597889', 'e9ca23d68d884d4ebb19d07889727dae', 'f6817f48af4fb3af11b9e8bf182f618b');
 INSERT INTO `sys_user_role` VALUES ('1303623812290523138', 'f0019fdebedb443c98dcb17d88222c38', 'ee8626f80f7c2619917b6236f3a7f02b');
 
+
+-- ----------------------------
+-- Table structure for label_user_sub_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `label_user_sub_tag`;
+CREATE TABLE `label_user_sub_tag`  (
+  `id` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标签名称',
+  `sub_tag` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '相关联标签',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '内容',
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户标签关联表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of label_user_sub_tag
+-- ----------------------------
+INSERT INTO `label_user_sub_tag` VALUES ('cf8a425b1eb183bb56dc2732fe283e1e', '消费高', '身高,年龄,性别', 'package com.laofeizhu;\n\nimport com.laofeizhu.*;\nimport com.laofeizhu.model.*;\n\nrule \"label rule1\"\nwhen\n    r : Result( )\n    sg : UserLabelVo(label==\"身高\" && Integer.valueOf(value)>155 && Integer.valueOf(value)<=190 )\n    tz : UserLabelVo(label==\"年龄\" && Integer.valueOf(value)>=30 && Integer.valueOf(value)<=40 )\n    sex : UserLabelVo(label==\"性别\" && value==\"男\" )\nthen\n    r.add(\"消费高\");\nend', '2021-02-02 20:43:34', NULL, 'admin', NULL);
+
+
 SET FOREIGN_KEY_CHECKS = 1;
+
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : 本地
+ Source Server Type    : MySQL
+ Source Server Version : 50713
+ Source Host           : localhost:3306
+ Source Schema         : label_service
+
+ Target Server Type    : MySQL
+ Target Server Version : 50713
+ File Encoding         : 65001
+
+ Date: 02/02/2021 20:59:08
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;

@@ -138,7 +138,7 @@ public class SysPermission implements Serializable {
 	private Date updateTime;
 	
 	/**按钮权限状态(0无效1有效)*/
-	private java.lang.String status;
+	private String status;
 	
 	/**alwaysShow*/
     private boolean alwaysShow;

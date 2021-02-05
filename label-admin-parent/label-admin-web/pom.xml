@@ -57,6 +57,10 @@
 			<groupId>com.laofeizhu</groupId>
 			<artifactId>label-admin-common</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.laofeizhu</groupId>
+			<artifactId>label-parser</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<build>

@@ -6,23 +6,7 @@ import com.laofeizhu.model.*;
 rule "label rule1"
 when
     r : Result( )
-    l : BaseUserVo(label=="user_label_2" )
+    l : UserLabelVo(label=="有痘" )
 then
-    r.add("product_label_1");
-end
-
-rule "label rule2"
-when
-    r : Result( )
-    l : BaseUserVo( label=="user_label_1" )
-then
-    r.add("product_label_3");
-end
-
-rule "label rule3"
-when
-    r : Result( )
-    l : BaseUserVo( label=="user_label_1" )
-then
-    r.add("测试1");
+    r.add("祛痘");
 end

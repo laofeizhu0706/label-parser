@@ -32,15 +32,15 @@ public class LabelUserTag extends JeecgEntity {
 	/**id*/
 	@TableId(type = IdType.UUID)
     @ApiModelProperty(value = "id")
-	private java.lang.String id;
+	private String id;
 	/**标签名称*/
 	@Excel(name = "标签名称", width = 15)
     @ApiModelProperty(value = "标签名称")
-	private java.lang.String name;
+	private String name;
 	/**父id*/
 	@Excel(name = "父id", width = 15)
     @ApiModelProperty(value = "父id")
-	private java.lang.String parentId;
+	private String parentId;
 	/**
 	 * 是否叶子节点: 1:是  0:不是
 	 */
@@ -53,19 +53,19 @@ public class LabelUserTag extends JeecgEntity {
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "createTime")
-	private java.util.Date createTime;
+	private Date createTime;
 	/**updateTime*/
 	@Excel(name = "updateTime", width = 20, format = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "updateTime")
-	private java.util.Date updateTime;
+	private Date updateTime;
 	/**createBy*/
 	@Excel(name = "createBy", width = 15)
     @ApiModelProperty(value = "createBy")
-	private java.lang.String createBy;
+	private String createBy;
 	/**updateBy*/
 	@Excel(name = "updateBy", width = 15)
     @ApiModelProperty(value = "updateBy")
-	private java.lang.String updateBy;
+	private String updateBy;
 }

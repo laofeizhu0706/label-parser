@@ -28,7 +28,7 @@ public interface ISysUserService extends IService<SysUser> {
 	 * @param user
 	 * @param roles
 	 */
-	public void addUserWithRole(SysUser user,String roles);
+	public void addUserWithRole(SysUser user, String roles);
 	
 	
 	/**
@@ -36,7 +36,7 @@ public interface ISysUserService extends IService<SysUser> {
 	 * @param user
 	 * @param roles
 	 */
-	public void editUserWithRole(SysUser user,String roles);
+	public void editUserWithRole(SysUser user, String roles);
 
 	/**
 	 * 获取用户的授权角色
@@ -64,7 +64,7 @@ public interface ISysUserService extends IService<SysUser> {
 	 * @param
 	 * @return
 	 */
-	public IPage<SysUser> getUserByRoleId(Page<SysUser> page,String roleId, String username);
+	public IPage<SysUser> getUserByRoleId(Page<SysUser> page, String roleId, String username);
 
 	/**
 	 * 通过用户名获取用户角色集合
@@ -87,5 +87,5 @@ public interface ISysUserService extends IService<SysUser> {
 	 * @param username
 	 * @param orgCode
 	 */
-	void updateUserDepart(String username,String orgCode);
+	void updateUserDepart(String username, String orgCode);
 }

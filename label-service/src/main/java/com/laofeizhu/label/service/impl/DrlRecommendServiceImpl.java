@@ -2,10 +2,12 @@ package com.laofeizhu.label.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
-import com.laofeizhu.label.dao.LabelDrlMapper;
 import com.laofeizhu.label.dao.LabelProductMapper;
-import com.laofeizhu.label.dto.LabelDrl;
+import com.laofeizhu.label.dao.LabelProductSubTagMapper;
+import com.laofeizhu.label.dao.LabelUserSubTagMapper;
 import com.laofeizhu.label.dto.LabelProduct;
+import com.laofeizhu.label.dto.LabelProductSubTag;
+import com.laofeizhu.label.dto.LabelUserSubTag;
 import com.laofeizhu.label.dto.TempProduct;
 import com.laofeizhu.label.service.RecommendService;
 import com.laofeizhu.service.IRecommendService;
@@ -27,44 +29,60 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DrlRecommendServiceImpl implements RecommendService {
 
-    private List<IRecommendService> recommendServices;
+    private List<IRecommendService> userRecommendServices;
+    private List<IRecommendService> productRecommendServices;
 
     @Autowired
-    private LabelDrlMapper labelDrlMapper;
+    private LabelProductSubTagMapper labelProductSubTagMapper;
+
+    @Autowired
+    private LabelUserSubTagMapper labelUserSubTagMapper;
 
     @Autowired
     private LabelProductMapper labelProductMapper;
 
+    private static final String USER_LABEL_PRE = "user_";
+    private static final String PRODUCT_LABEL_PRE = "product_";
+
     @PostConstruct
     public void init() {
-        recommendServices = Lists.newArrayList();
-        QueryWrapper<LabelDrl> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(LabelDrl::getEnable, true);
-        List<LabelDrl> labelDrls = labelDrlMapper.selectList(wrapper);
-        for (LabelDrl labelDrl : labelDrls) {
-            IRecommendService recommendService = DefaultRecommendService.buildByVersion(labelDrl.getLabelVersion(), labelDrl.getContent());
-            recommendServices.add(recommendService);
+        userRecommendServices = Lists.newArrayList();
+        List<LabelUserSubTag> labelUserSubTags = labelUserSubTagMapper.selectList(new QueryWrapper<>());
+        for (LabelUserSubTag label : labelUserSubTags) {
+            IRecommendService recommendService = DefaultRecommendService.buildByVersion(USER_LABEL_PRE + label.getName(), label.getContent());
+            userRecommendServices.add(recommendService);
+        }
+        productRecommendServices = Lists.newArrayList();
+        List<LabelProductSubTag> labelProductSubTags = labelProductSubTagMapper.selectList(new QueryWrapper<>());
+        for (LabelProductSubTag label : labelProductSubTags) {
+            IRecommendService recommendService = DefaultRecommendService.buildByVersion(PRODUCT_LABEL_PRE + label.getName(), label.getContent());
+            productRecommendServices.add(recommendService);
         }
     }
 
     @Override
-    public List<IRecommendService> listRecommends() {
-        return this.recommendServices;
+    public List<IRecommendService> listUserRecommends() {
+        return this.userRecommendServices;
     }
+
+    @Override
+    public List<IRecommendService> listProductRecommends() {
+        return this.productRecommendServices;
+    }
+
 
     @Override
     public void refresh() {
         log.info("===================== start refresh recommendService =====================");
-        if (Objects.nonNull(recommendServices)) {
-            QueryWrapper<LabelDrl> wrapper = new QueryWrapper<>();
-            wrapper.lambda().eq(LabelDrl::getEnable, true);
-            List<LabelDrl> labelDrls = labelDrlMapper.selectList(wrapper);
+        if (Objects.nonNull(userRecommendServices)) {
+            QueryWrapper<LabelUserSubTag> wrapper = new QueryWrapper<>();
+            List<LabelUserSubTag> labelUserSubTags = labelUserSubTagMapper.selectList(wrapper);
             boolean isUpdate = false;
-            if (labelDrls.size() != recommendServices.size()) {
+            if (labelUserSubTags.size() != userRecommendServices.size()) {
                 isUpdate = true;
             } else {
-                for (LabelDrl labelDrl : labelDrls) {
-                    if (recommendServices.stream().noneMatch(o-> labelDrl.getContent().equals(o.getContent()))) {
+                for (LabelUserSubTag labelDrl : labelUserSubTags) {
+                    if (userRecommendServices.stream().noneMatch(o -> labelDrl.getContent().equals(o.getContent()))) {
                         isUpdate = true;
                         break;
                     }
@@ -72,15 +90,41 @@ public class DrlRecommendServiceImpl implements RecommendService {
             }
             //全量更新
             if (isUpdate) {
-                log.info("===================== refresh all recommendService =====================");
+                log.info("===================== refresh all user recommendService =====================");
                 List<IRecommendService> temp = Lists.newArrayList();
-                for (LabelDrl labelDrl : labelDrls) {
-                    IRecommendService recommendService = DefaultRecommendService.buildByVersion(labelDrl.getLabelVersion(), labelDrl.getContent());
+                for (LabelUserSubTag label : labelUserSubTags) {
+                    IRecommendService recommendService = DefaultRecommendService.buildByVersion(USER_LABEL_PRE + label.getName(), label.getContent());
                     temp.add(recommendService);
                 }
-                recommendServices = temp;
+                userRecommendServices = temp;
             } else {
-                log.info("===================== not refresh recommendService =====================");
+                log.info("===================== not refresh user recommendService =====================");
+            }
+        }
+        if (Objects.nonNull(productRecommendServices)) {
+            List<LabelProductSubTag> labelProductSubTags = labelProductSubTagMapper.selectList(new QueryWrapper<>());
+            boolean isUpdate = false;
+            if (labelProductSubTags.size() != productRecommendServices.size()) {
+                isUpdate = true;
+            } else {
+                for (LabelProductSubTag labelDrl : labelProductSubTags) {
+                    if (productRecommendServices.stream().noneMatch(o -> labelDrl.getContent().equals(o.getContent()))) {
+                        isUpdate = true;
+                        break;
+                    }
+                }
+            }
+            //全量更新
+            if (isUpdate) {
+                log.info("===================== refresh all product recommendService =====================");
+                List<IRecommendService> temp = Lists.newArrayList();
+                for (LabelProductSubTag label : labelProductSubTags) {
+                    IRecommendService recommendService = DefaultRecommendService.buildByVersion(PRODUCT_LABEL_PRE + label.getName(), label.getContent());
+                    temp.add(recommendService);
+                }
+                productRecommendServices = temp;
+            } else {
+                log.info("===================== not refresh product recommendService =====================");
             }
         }
         log.info("===================== end refresh recommendService =====================");
@@ -89,8 +133,8 @@ public class DrlRecommendServiceImpl implements RecommendService {
     @Override
     public void refreshProduct() {
         List<LabelProduct> products = labelProductMapper.selectList(new QueryWrapper<>());
-        if (recommendServices!=null && recommendServices.size()>0) {
-            for (IRecommendService recommendService : recommendServices) {
+        if (products != null && products.size() > 0) {
+            for (IRecommendService recommendService : productRecommendServices) {
                 List<TempProduct> productList = products.stream().map(o -> {
                     TempProduct tempProduct = new TempProduct();
                     tempProduct.setTitle(o.getName());

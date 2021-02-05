@@ -23,11 +23,11 @@ import java.util.List;
 @Data
 public class LabelUserTagTree {
     /**id*/
-    private java.lang.String id;
+    private String id;
     /**标签名称*/
-    private java.lang.String name;
+    private String name;
     /**父id*/
-    private java.lang.String parentId;
+    private String parentId;
     /**
      * 是否叶子节点: 1:是  0:不是
      */

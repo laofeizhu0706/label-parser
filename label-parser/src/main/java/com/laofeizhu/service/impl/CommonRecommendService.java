@@ -12,6 +12,7 @@ import com.laofeizhu.enums.ReadFromType;
 import com.laofeizhu.model.BaseProductVo;
 import com.laofeizhu.model.BaseUserVo;
 import com.laofeizhu.model.Result;
+import com.laofeizhu.model.UserLabelVo;
 import com.laofeizhu.service.IRecommendService;
 import org.kie.api.runtime.KieSession;
 
@@ -43,7 +44,7 @@ public class CommonRecommendService implements IRecommendService {
 
     private static final String PRODUCT_DRL_PATH = "rules/product/product.drl";
 
-    protected CommonRecommendService(String filePath, ICommonContent content, List<? extends BaseProductVo> baseProductVos, Boolean isReload) {
+    protected <T extends BaseProductVo>CommonRecommendService(String filePath, ICommonContent content, List<T> baseProductVos, Boolean isReload) {
         this.fromType = ReadFromType.PATH;
         this.filePath = filePath;
         if (Objects.isNull(content)) {
@@ -110,16 +111,16 @@ public class CommonRecommendService implements IRecommendService {
     }
 
     @Override
-    public void addProductLabel(List<? extends BaseProductVo> productVos) {
+    public <T extends BaseProductVo>void addProductLabel(List<T> productVos) {
         if (this.baseProductVos != null && this.baseProductVos.size() > 0) {
-            this.baseProductVos.addAll((List) Lists.newArrayList(Sets.newHashSet(productVos)));
+            this.baseProductVos.addAll(Lists.newArrayList());
         } else {
             this.baseProductVos = Lists.newArrayList(Sets.newHashSet(productVos));
         }
     }
 
     @Override
-    public List<String> listMatchingLabel(List<String> userLabels) {
+    public List<String> listMatchingLabel(List<UserLabelVo> userLabels) {
         if (Objects.nonNull(userLabels) && userLabels.size() > 0) {
             KieSession kieSession = null;
             switch (this.fromType) {
@@ -133,10 +134,10 @@ public class CommonRecommendService implements IRecommendService {
                     kieSession = KieSessionHelper.getKieSessionByVersion(version);
                     break;
             }
-            for (String userLabel : userLabels) {
-                kieSession.insert(new BaseUserVo(userLabel));
+            for (UserLabelVo userLabel : userLabels) {
+                kieSession.insert(userLabel);
             }
-            Result result = new Result();
+            Result<String> result = new Result<String>();
             kieSession.insert(result);
             kieSession.insert(content);
             kieSession.fireAllRules();
@@ -148,14 +149,14 @@ public class CommonRecommendService implements IRecommendService {
     }
 
     @Override
-    public List<? extends BaseProductVo> listMatchingProduct(List<String> userLabels) {
+    public <T extends BaseProductVo> List<T> listMatchingProduct(List<UserLabelVo> userLabels) {
         if (Objects.nonNull(baseProductVos) &&
                 baseProductVos.size() > 0) {
             List<String> productLabels = listMatchingLabel(userLabels);
             if (Objects.nonNull(productLabels) &&
                     productLabels.size() > 0) {
                 KieSession kieSession = KieSessionHelper.getKieSessionByPath(PRODUCT_DRL_PATH);
-                Result result = new Result();
+                Result<T> result = new Result<T>();
                 for (String productLabel : productLabels) {
                     kieSession.insert(new BaseUserVo(productLabel));
                 }
@@ -165,7 +166,7 @@ public class CommonRecommendService implements IRecommendService {
                 kieSession.insert(result);
                 kieSession.fireAllRules();
                 kieSession.dispose();
-                return result.getProductResults();
+                return result.getResults();
             }
         }
         return Lists.newArrayList();

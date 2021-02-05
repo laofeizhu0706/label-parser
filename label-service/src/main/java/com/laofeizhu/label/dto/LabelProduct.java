@@ -11,10 +11,7 @@ import java.util.Date;
  * @Created by laofeizhu
  */
 @Data
-public class LabelProduct {
-    private String id;
+public class LabelProduct extends BaseDo {
     private String name;
     private String labelName;
-    private Date createTime;
-    private Date updateTime;
 }

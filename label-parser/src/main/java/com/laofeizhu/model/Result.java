@@ -12,35 +12,23 @@ import java.util.Set;
  * @Date 2021/1/15 21:54
  * @Created by laofeizhu
  */
-public class Result extends BaseModel {
+public class Result<T> extends BaseModel {
 
     private static final long serialVersionUID = 712403533007017501L;
 
-    private final Set<String> results = Sets.newHashSet();
-    private final Set<BaseProductVo> productResults = Sets.newHashSet();
+    private final Set<T> results = Sets.newHashSet();
 
-    public void add(String value) {
+    public void add(T value) {
         results.add(value);
     }
 
-    public void addProduct(BaseProductVo value) {
-        productResults.add(value);
-    }
 
-    public void addAll(List<String> values) {
+    public void addAll(List<T> values) {
         results.addAll(values);
     }
 
-
-    public void addAllProduct(List<BaseProductVo> values) {
-        productResults.addAll(values);
-    }
-
-    public List<String> getResults() {
+    public List<T> getResults() {
         return Lists.newArrayList(results);
     }
 
-    public List<BaseProductVo> getProductResults() {
-        return Lists.newArrayList(productResults);
-    }
 }

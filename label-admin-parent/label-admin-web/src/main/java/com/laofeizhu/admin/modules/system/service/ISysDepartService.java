@@ -26,14 +26,14 @@ public interface ISysDepartService extends IService<SysDepart>{
      * 保存部门数据
      * @param sysDepart
      */
-    void saveDepartData(SysDepart sysDepart,String username);
+    void saveDepartData(SysDepart sysDepart, String username);
 
     /**
      * 更新depart数据
      * @param sysDepart
      * @return
      */
-    Boolean updateDepartDataById(SysDepart sysDepart,String username);
+    Boolean updateDepartDataById(SysDepart sysDepart, String username);
     
     /**
      * 删除depart数据

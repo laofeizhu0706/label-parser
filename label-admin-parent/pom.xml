@@ -249,6 +249,11 @@
 	    		<artifactId>label-admin-common</artifactId>
 	    		<version>1.0.0</version>
 	    	</dependency>
+			<dependency>
+				<groupId>com.laofeizhu</groupId>
+				<artifactId>label-parser</artifactId>
+				<version>1.0</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>

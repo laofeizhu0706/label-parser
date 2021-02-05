@@ -23,13 +23,7 @@
           label="相关联标签">
           <a-input placeholder="请输入相关联标签" v-decorator="['subTag', validatorRules.subTag ]" />
         </a-form-item>
-        <a-form-item
-          :labelCol="labelCol"
-          :wrapperCol="wrapperCol"
-          label="内容">
-          <a-textarea placeholder="请输入内容" v-decorator="['content', {}]" />
-        </a-form-item>
-		
+
       </a-form>
     </a-spin>
   </a-modal>
@@ -79,7 +73,7 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'name','subTag','content'))
+          this.form.setFieldsValue(pick(this.model,'name','subTag'))
 		  //时间格式化
         });
 

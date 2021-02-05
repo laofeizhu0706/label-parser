@@ -19,7 +19,7 @@ public interface ISysAnnouncementService extends IService<SysAnnouncement> {
 
 	public void saveSysAnnouncement(String title, String msgContent);
 
-	public Page<SysAnnouncement> querySysCementPageByUserId(Page<SysAnnouncement> page,String userId,String msgCategory);
+	public Page<SysAnnouncement> querySysCementPageByUserId(Page<SysAnnouncement> page, String userId, String msgCategory);
 
 
 }

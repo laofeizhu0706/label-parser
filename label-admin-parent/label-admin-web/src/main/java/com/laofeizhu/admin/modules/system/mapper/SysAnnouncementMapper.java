@@ -17,6 +17,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 public interface SysAnnouncementMapper extends BaseMapper<SysAnnouncement> {
 
 	
-	List<SysAnnouncement> querySysCementListByUserId(Page<SysAnnouncement> page, @Param("userId")String userId,@Param("msgCategory")String msgCategory);
+	List<SysAnnouncement> querySysCementListByUserId(Page<SysAnnouncement> page, @Param("userId") String userId, @Param("msgCategory") String msgCategory);
 
 }

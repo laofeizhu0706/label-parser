@@ -11,6 +11,13 @@ import lombok.Data;
 public class UserLabelVo extends BaseUserVo {
     private String value;
 
+    public UserLabelVo() {
+    }
+
+    public UserLabelVo(String label) {
+        super(label);
+    }
+
     public UserLabelVo(String label, String value) {
         super(label);
         this.value = value;
@@ -18,5 +25,9 @@ public class UserLabelVo extends BaseUserVo {
 
     public String getValue() {
         return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

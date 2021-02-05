@@ -26,12 +26,12 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
 	public Long duplicateCheckCountSqlNoDataId(DuplicateCheckVo duplicateCheckVo);
 	
 	public List<DictModel> queryDictItemsByCode(@Param("code") String code);
-	public List<DictModel> queryTableDictItemsByCode(@Param("table") String table,@Param("text") String text,@Param("code") String code);
+	public List<DictModel> queryTableDictItemsByCode(@Param("table") String table, @Param("text") String text, @Param("code") String code);
 
 
-	public String queryDictTextByKey(@Param("code") String code,@Param("key") String key);
+	public String queryDictTextByKey(@Param("code") String code, @Param("key") String key);
 
-	public String queryTableDictTextByKey(@Param("table") String table,@Param("text") String text,@Param("code") String code,@Param("key") String key);
+	public String queryTableDictTextByKey(@Param("table") String table, @Param("text") String text, @Param("code") String code, @Param("key") String key);
 
 	
 	/**

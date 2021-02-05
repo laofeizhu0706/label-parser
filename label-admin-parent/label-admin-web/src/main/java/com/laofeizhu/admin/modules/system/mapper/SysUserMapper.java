@@ -43,5 +43,5 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 	 * @param username
 	 * @param departId
 	 */
-	void updateUserDepart(@Param("username") String username,@Param("orgCode") String orgCode);
+	void updateUserDepart(@Param("username") String username, @Param("orgCode") String orgCode);
 }

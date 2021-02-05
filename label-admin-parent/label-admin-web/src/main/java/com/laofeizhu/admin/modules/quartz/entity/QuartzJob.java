@@ -25,34 +25,34 @@ public class QuartzJob implements Serializable {
     
 	/**id*/
 	@TableId(type = IdType.UUID)
-	private java.lang.String id;
+	private String id;
 	/**创建人*/
-	private java.lang.String createBy;
+	private String createBy;
 	/**创建时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private java.util.Date createTime;
 	/**删除状态*/
-	private java.lang.Integer delFlag;
+	private Integer delFlag;
 	/**修改人*/
-	private java.lang.String updateBy;
+	private String updateBy;
 	/**修改时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private java.util.Date updateTime;
 	/**任务类名*/
 	@Excel(name="任务类名",width=40)
-	private java.lang.String jobClassName;
+	private String jobClassName;
 	/**cron表达式*/
 	@Excel(name="cron表达式",width=30)
-	private java.lang.String cronExpression;
+	private String cronExpression;
 	/**参数*/
 	@Excel(name="参数",width=15)
-	private java.lang.String parameter;
+	private String parameter;
 	/**描述*/
 	@Excel(name="描述",width=40)
-	private java.lang.String description;
+	private String description;
 	/**状态 0正常 -1停止*/
 	@Excel(name="状态",width=15)
-	private java.lang.Integer status;
+	private Integer status;
 }

@@ -23,6 +23,6 @@ public interface ISysAnnouncementSendService extends IService<SysAnnouncementSen
 	 * @param announcementSendModel
 	 * @return
 	 */
-	public Page<AnnouncementSendModel> getMyAnnouncementSendPage(Page<AnnouncementSendModel> page,AnnouncementSendModel announcementSendModel);
+	public Page<AnnouncementSendModel> getMyAnnouncementSendPage(Page<AnnouncementSendModel> page, AnnouncementSendModel announcementSendModel);
 
 }

@@ -10,7 +10,9 @@ import java.util.List;
  */
 public interface RecommendService {
 
-    List<IRecommendService> listRecommends();
+    List<IRecommendService> listUserRecommends();
+
+    List<IRecommendService> listProductRecommends();
 
     void refresh();
 

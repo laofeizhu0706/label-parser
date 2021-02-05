@@ -28,23 +28,23 @@ public class SysCity {
 	/**id*/
 	@TableId(type = IdType.UUID)
     @ApiModelProperty(value = "id")
-	private java.lang.Integer id;
+	private Integer id;
 	/**国家ID*/
 	@Excel(name = "国家ID", width = 15)
     @ApiModelProperty(value = "国家ID")
-	private java.lang.Integer countryId;
+	private Integer countryId;
 	/**省份ID*/
 	@Excel(name = "省份ID", width = 15)
     @ApiModelProperty(value = "省份ID")
-	private java.lang.Integer provinceId;
+	private Integer provinceId;
 	/**城市名称*/
 	@Excel(name = "城市名称", width = 15)
     @ApiModelProperty(value = "城市名称")
-	private java.lang.String name;
+	private String name;
 	/**createBy*/
 	@Excel(name = "createBy", width = 15)
     @ApiModelProperty(value = "createBy")
-	private java.lang.String createBy;
+	private String createBy;
 	/**createTime*/
 	@Excel(name = "createTime", width = 20, format = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
@@ -54,7 +54,7 @@ public class SysCity {
 	/**updateBy*/
 	@Excel(name = "updateBy", width = 15)
     @ApiModelProperty(value = "updateBy")
-	private java.lang.String updateBy;
+	private String updateBy;
 	/**updateTime*/
 	@Excel(name = "updateTime", width = 20, format = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")

@@ -3,6 +3,7 @@ package com.laofeizhu.service.impl;
 import com.google.common.collect.Lists;
 import com.laofeizhu.data.ICommonContent;
 import com.laofeizhu.model.BaseProductVo;
+import com.laofeizhu.model.UserLabelVo;
 import com.laofeizhu.service.IRecommendService;
 
 import java.util.List;
@@ -92,17 +93,17 @@ public class DefaultRecommendService implements IRecommendService {
     }
 
     @Override
-    public void addProductLabel(List<? extends BaseProductVo> baseProductVos) {
+    public <T extends BaseProductVo> void addProductLabel(List<T> baseProductVos) {
 
     }
 
     @Override
-    public List<String> listMatchingLabel(List<String> userLabels) {
+    public List<String> listMatchingLabel(List<UserLabelVo> userLabels) {
         return null;
     }
 
     @Override
-    public List<? extends BaseProductVo> listMatchingProduct(List<String> userLabels) {
+    public <T extends BaseProductVo> List<T> listMatchingProduct(List<UserLabelVo> userLabels) {
         return null;
     }
 
@@ -110,5 +111,6 @@ public class DefaultRecommendService implements IRecommendService {
     public String getContent() {
         return null;
     }
+
 
 }

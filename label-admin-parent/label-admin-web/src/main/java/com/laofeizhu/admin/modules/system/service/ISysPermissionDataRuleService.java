@@ -37,7 +37,7 @@ public interface ISysPermissionDataRuleService extends IService<SysPermissionDat
 	 * @param username
 	 * @return
 	 */
-	List<SysPermissionDataRule> queryPermissionDataRules(String username,String permissionId);
+	List<SysPermissionDataRule> queryPermissionDataRules(String username, String permissionId);
 	
 	/**
 	 * 新增菜单权限配置 修改菜单rule_flag
