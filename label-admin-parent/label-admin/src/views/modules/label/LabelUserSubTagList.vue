@@ -119,13 +119,13 @@
             }
            },
 		   {
-            title: '标签名称',
+            title: '二级标签名称',
             align:"center",
             width:100,
             dataIndex: 'name'
            },
 		   {
-            title: '相关联标签',
+            title: '相关联一级标签',
             align:"center",
             width:300,
             dataIndex: 'subTag'

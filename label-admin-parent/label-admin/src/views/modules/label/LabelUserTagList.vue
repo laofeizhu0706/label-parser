@@ -98,7 +98,7 @@
     },
     data() {
       return {
-        description: '这是菜单管理页面',
+        description: '这是标签管理页面',
         // 表头
         columns: columns,
         loading: false,

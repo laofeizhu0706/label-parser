@@ -33,6 +33,10 @@ public class LabelProduct extends JeecgEntity {
 	@TableId(type = IdType.UUID)
     @ApiModelProperty(value = "id")
 	private String id;
+	/**商品id*/
+	@Excel(name = "商品id", width = 15)
+	@ApiModelProperty(value = "商品id")
+	private String productId;
 	/**商品名称*/
 	@Excel(name = "商品名称", width = 15)
     @ApiModelProperty(value = "商品名称")

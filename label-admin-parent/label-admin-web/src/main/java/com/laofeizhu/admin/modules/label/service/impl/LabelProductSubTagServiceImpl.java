@@ -27,6 +27,11 @@ public class LabelProductSubTagServiceImpl extends ServiceImpl<LabelProductSubTa
 
     private static final String PROUDCT_TAG_LABEL_DRL_PATH = "drl/ProductTagLabel.drl";
 
+    private static final String MODEL = "{0}:UserLabelVo({1})\n";
+    private static final String LABEL_MODEL = " label==\"{0}\" ";
+
+
+
     @Autowired
     private LabelHandlerContext context;
 
@@ -43,9 +48,16 @@ public class LabelProductSubTagServiceImpl extends ServiceImpl<LabelProductSubTa
         if (Objects.nonNull(baseModel)) {
             StringBuilder models = new StringBuilder();
             for (String label : Sets.newHashSet(labelProductSubTag.getSubTag().split(","))) {
-                models.append(context.getHandler(LabelHandlerTypeEnum.NON_VALUE.name()).get(label));
+                models.append(MessageFormat.format(LABEL_MODEL, label)).append("||");
             }
-            labelProductSubTag.setContent(MessageFormat.format(baseModel, models.toString(), labelProductSubTag.getName()));
+            String modelString = null;
+            if (models.lastIndexOf("||")!=0) {
+                modelString = models.substring(0, models.lastIndexOf("||"));
+            } else {
+                modelString = models.toString();
+            }
+            modelString = MessageFormat.format(MODEL, "tag", modelString);
+            labelProductSubTag.setContent(MessageFormat.format(baseModel, modelString, labelProductSubTag.getName()));
             save(labelProductSubTag);
         }
     }
@@ -63,9 +75,16 @@ public class LabelProductSubTagServiceImpl extends ServiceImpl<LabelProductSubTa
         if (Objects.nonNull(baseModel)) {
             StringBuilder models = new StringBuilder();
             for (String label : Sets.newHashSet(labelProductSubTag.getSubTag().split(","))) {
-                models.append(context.getHandler(LabelHandlerTypeEnum.NON_VALUE.name()).get(label));
+                models.append(MessageFormat.format(LABEL_MODEL, label)).append("||");
             }
-            labelProductSubTag.setContent(MessageFormat.format(baseModel, models.toString(), labelProductSubTag.getName()));
+            String modelString = null;
+            if (models.lastIndexOf("||")!=0) {
+                modelString = models.substring(0, models.lastIndexOf("||"));
+            } else {
+                modelString = models.toString();
+            }
+            modelString = MessageFormat.format(MODEL, "tag", modelString);
+            labelProductSubTag.setContent(MessageFormat.format(baseModel, modelString, labelProductSubTag.getName()));
             updateById(labelProductSubTag);
         }
     }

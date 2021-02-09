@@ -111,13 +111,18 @@
               return parseInt(index)+1;
             }
            },
+          {
+            title: '商品id',
+            align:"center",
+            dataIndex: 'productId'
+          },
 		   {
             title: '商品名称',
             align:"center",
             dataIndex: 'name'
            },
 		   {
-            title: '标签名称',
+            title: '商品标签',
             align:"center",
             dataIndex: 'labelName'
            },

@@ -10,7 +10,12 @@
     
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
-      
+        <a-form-item
+          :labelCol="labelCol"
+          :wrapperCol="wrapperCol"
+          label="商品id">
+          <a-input placeholder="请输入商品id" v-decorator="['productId', {}]" />
+        </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
@@ -20,10 +25,19 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="标签名称">
-          <a-input placeholder="请输入标签名称" v-decorator="['labelName', {}]" />
+          label="商品标签">
+          <a-select
+            mode="multiple"
+            style="width: 100%"
+            placeholder="请选择商品标签"
+            v-decorator="['labelName', validatorRules.labelName ]"
+          >
+            <a-select-option v-for="(tag,index) in selectData" :key="(index + 9).toString(36) + index" :value="tag.name">
+              {{ tag.name }}
+            </a-select-option>
+          </a-select>
         </a-form-item>
-		
+
       </a-form>
     </a-spin>
   </a-modal>
@@ -49,7 +63,7 @@
           xs: { span: 24 },
           sm: { span: 16 },
         },
-
+        selectData: [],
         confirmLoading: false,
         form: this.$form.createForm(this),
         validatorRules:{
@@ -57,10 +71,16 @@
         url: {
           add: "/label/labelProduct/add",
           edit: "/label/labelProduct/edit",
+          listProductTag:"/label/labelProductSubTag/list"
         },
       }
     },
     created () {
+      httpAction(this.url.listProductTag,{"pageNo":1,"pageSize":99999},'get').then((res)=>{
+        if(res.success){
+          this.selectData=res.result.records;
+        }
+      });
     },
     methods: {
       add () {
@@ -71,7 +91,7 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'name','labelName'))
+          this.form.setFieldsValue(pick(this.model,'name','labelName','productId'))
 		  //时间格式化
         });
 
@@ -97,7 +117,7 @@
             }
             let formData = Object.assign(this.model, values);
             //时间格式化
-            
+            formData.labelName=formData.labelName.join()
             console.log(formData)
             httpAction(httpurl,formData,method).then((res)=>{
               if(res.success){

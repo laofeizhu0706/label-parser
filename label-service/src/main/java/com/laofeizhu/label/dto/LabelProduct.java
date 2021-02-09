@@ -14,4 +14,5 @@ import java.util.Date;
 public class LabelProduct extends BaseDo {
     private String name;
     private String labelName;
+    private String productId;
 }

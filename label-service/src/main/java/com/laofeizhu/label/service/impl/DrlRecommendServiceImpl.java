@@ -138,6 +138,7 @@ public class DrlRecommendServiceImpl implements RecommendService {
                 List<TempProduct> productList = products.stream().map(o -> {
                     TempProduct tempProduct = new TempProduct();
                     tempProduct.setTitle(o.getName());
+                    tempProduct.setProductId(o.getProductId());
                     tempProduct.setId(o.getId());
                     tempProduct.setLabels(Lists.newArrayList(o.getLabelName().split(",")));
                     return tempProduct;

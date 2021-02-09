@@ -20,8 +20,17 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="相关联标签">
-          <a-input placeholder="请输入相关联标签" v-decorator="['subTag', validatorRules.subTag ]" />
+          label="用户标签">
+          <a-select
+            mode="multiple"
+            style="width: 100%"
+            placeholder="请选择用户标签"
+            v-decorator="['subTag', validatorRules.subTag ]"
+          >
+            <a-select-option v-for="(tag,index) in selectData" :key="(index + 9).toString(36) + index" :value="tag.name">
+              {{ tag.name }}
+            </a-select-option>
+          </a-select>
         </a-form-item>
 
       </a-form>
@@ -49,7 +58,7 @@
           xs: { span: 24 },
           sm: { span: 16 },
         },
-
+        selectData:[],
         confirmLoading: false,
         form: this.$form.createForm(this),
         validatorRules:{
@@ -59,10 +68,16 @@
         url: {
           add: "/label/labelProductSubTag/add",
           edit: "/label/labelProductSubTag/edit",
+          listUserTag:"/label/labelUserSubTag/list"
         },
       }
     },
     created () {
+      httpAction(this.url.listUserTag,{"pageNo":1,"pageSize":99999},'get').then((res)=>{
+        if(res.success){
+          this.selectData=res.result.records;
+        }
+      });
     },
     methods: {
       add () {
@@ -99,7 +114,7 @@
             }
             let formData = Object.assign(this.model, values);
             //时间格式化
-            
+            formData.subTag=formData.subTag.join()
             console.log(formData)
             httpAction(httpurl,formData,method).then((res)=>{
               if(res.success){
