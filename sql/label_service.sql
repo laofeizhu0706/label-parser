@@ -63,20 +63,42 @@ INSERT INTO `label_drl_history` VALUES ('8f346544b63d49a985fd18a10b943db3', '测
 INSERT INTO `label_drl_history` VALUES ('adbd5318b363b8056cedcad688edf28c', '测试1', 'v1.4', 'package com.laofeizhu;\n\nimport com.laofeizhu.*;\nimport com.laofeizhu.model.*;\n\nrule \"label rule1\"\nwhen\n    r : Result( )\n    l : BaseUserVo(label==\"user_label_2\" )\nthen\n    r.add(\"product_label_1\");\nend\n\nrule \"label rule2\"\nwhen\n    r : Result( )\n    l : BaseUserVo( label==\"user_label_1\" )\nthen\n    r.add(\"product_label_3\");\nend\n\nrule \"label rule3\"\nwhen\n    r : Result( )\n    l : BaseUserVo( label==\"user_label_1\" )\nthen\n    r.add(\"测试1\");\nend', '2021-02-01 23:26:08', NULL, 'admin', NULL);
 INSERT INTO `label_drl_history` VALUES ('c172a2d6ee06c02f69323f5be354f382', '测试1', 'v1.0', 'package com.laofeizhu;\n\nimport com.laofeizhu.*;\nimport com.laofeizhu.model.*;\n\nrule \"label rule1\"\nwhen\n    r : Result( )\n    l : BaseUserVo(label==\"user_label_2\" )\nthen\n    r.add(\"product_label_1\");\nend\n\nrule \"label rule2\"\nwhen\n    r : Result( )\n    l : BaseUserVo( label==\"user_label_1\" )\nthen\n    r.add(\"product_label_3\");\nend', '2021-01-31 14:17:26', NULL, 'admin', NULL);
 
--- ----------------------------
--- Table structure for label_product
--- ----------------------------
-DROP TABLE IF EXISTS `label_product`;
-CREATE TABLE `label_product`  (
-  `id` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '商品名称',
-  `label_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '标签名称',
-  `create_time` datetime(0) NULL DEFAULT NULL,
-  `update_time` datetime(0) NULL DEFAULT NULL,
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+CREATE TABLE `label_user_sub_tag` (
+  `id` char(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标签名称',
+  `sub_tag` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '相关联标签',
+  `content` text COLLATE utf8mb4_unicode_ci COMMENT '内容',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `create_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `update_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品表' ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户标签关联表';
+
+CREATE TABLE `label_product_sub_tag` (
+  `id` char(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标签名称',
+  `sub_tag` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '相关联标签',
+  `content` text COLLATE utf8mb4_unicode_ci COMMENT '内容',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `create_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `update_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户标签关联表';
+
+
+CREATE TABLE `label_product` (
+  `id` char(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_id` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品id',
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品名称',
+  `label_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标签名称',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `create_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `update_by` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='商品表';
 
 -- ----------------------------
 -- Records of label_product
