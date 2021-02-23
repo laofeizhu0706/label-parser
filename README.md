@@ -9,10 +9,27 @@
 
 ```
 #查找标签和查找商品的接口（当前无安全策略）
-http://127.0.0.1:9981/searchProductLabel
+一、http://127.0.0.1:9981/searchProductLabel
+输入参数：
+[
+    {
+        "label": "身高",
+        "value": "165"
+    },
+    {
+        "label": "收入",
+        "value": "6000"
+    },
+    {
+        "label": "是否祛痘",
+        "value": "是"
+    }
+]
+返回值：
+{["标签值"]}
 
 
-http://127.0.0.1:9981/searchProduct 
+二、http://127.0.0.1:9981/searchProduct 
 输入参数：json(传入后台配置好的)
 [
     {
