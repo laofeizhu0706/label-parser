@@ -36,7 +36,7 @@
 
   export default {
     name: "LabelUserSubTagModel",
-    props:["partInfo"],
+    props:["tag"],
     data () {
       return {
             form: this.$form.createForm(this),
@@ -47,6 +47,31 @@
     },
     created(){
       this.loadTree()
+      console.log("created")
+      if (!/^[0-9]*$/.test(this.tag))  {
+        setTimeout(() => {
+          if (this.tag.search("~")!==-1) {
+            this.form.setFieldsValue({
+              menuType: 0,
+              range1: this.tag.split("(")[1].split("~")[0],
+              range2: this.tag.split("(")[1].split("~")[1].split(")")[0]
+            });
+            this.localMenuType=0
+          } else {
+            this.form.setFieldsValue({
+              menuType: 1,
+              value: this.tag.split("(")[1].split(")")[0]
+            });
+            this.localMenuType=1
+          }
+          this.treeData.forEach(item=>{
+            if (item.title===this.tag.split("(")[0]) {
+              this.model.parentId=item.key
+              this.model.title=item.title
+            }
+          })
+        }, 200)
+      }
     },
     methods: {
         addTag() {
@@ -71,7 +96,7 @@
         },
         onChangeData(a,info) {
             if (info) {
-                this.model.title=info[0]
+              this.model.title=info[0]
             }
         },
         getData() {

@@ -87,6 +87,7 @@
         this.form.resetFields();
         this.model = Object.assign({}, record);
         this.visible = true;
+        this.model.subTag=this.model.subTag.split(",")
         this.$nextTick(() => {
           this.form.setFieldsValue(pick(this.model,'name','subTag'))
 		  //时间格式化

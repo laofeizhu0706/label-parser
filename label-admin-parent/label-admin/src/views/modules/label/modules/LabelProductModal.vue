@@ -90,6 +90,7 @@
         this.form.resetFields();
         this.model = Object.assign({}, record);
         this.visible = true;
+        this.model.labelName=this.model.labelName.split(",")
         this.$nextTick(() => {
           this.form.setFieldsValue(pick(this.model,'name','labelName','productId'))
 		  //时间格式化

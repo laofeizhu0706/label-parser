@@ -22,8 +22,8 @@
             :wrapperCol="wrapperCol"
             label="相关联标签">
             <a-col v-for="(tag,index) in tags" :key="index">
-              <a-tag :key="tag" :closable="true" @close="() => handleClose(tag)" style="height: auto;padding: 4px 18px;">
-                <labelUserSubTag-model :ref="'models'+tag"/>
+              <a-tag :key="index" :closable="true" @close="() => handleClose(tag)" style="height: auto;padding: 4px 18px;">
+                <labelUserSubTag-model :ref="'models'+index" :tag="tag" />
               </a-tag>
             </a-col>
             <a-tag style="background: #fff; borderStyle: dashed;" @click="addTag">
@@ -87,7 +87,12 @@
           this.form.setFieldsValue(pick(this.model,'name','subTag'))
 		  //时间格式化
         });
-
+        this.tags=[]
+        if (this.model.subTag) {
+          this.model.subTag.split(",").forEach(item=>{
+            this.tags.push(item)
+          })
+        }
       },
       close () {
         this.$emit('close');
@@ -147,7 +152,9 @@
       getSubData() {
         let arr = [];
         for(let index in this.$refs) {
-           arr.push(this.$refs[index][0].getData());
+          if (this.$refs[index][0]) {
+            arr.push(this.$refs[index][0].getData());
+          }
         }
         return arr.join();
       },
