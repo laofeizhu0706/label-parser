@@ -17,7 +17,21 @@ public interface IRecommendService {
      * 新增商品标签接口
      * @param baseProductVos
      */
-    <T extends BaseProductVo>  void addProductLabel(List<T> baseProductVos);
+    <T extends BaseProductVo>  void addProduct(List<T> baseProductVos);
+
+
+    /**
+     * 替换商品标签接口
+     * @param baseProductVos
+     */
+    <T extends BaseProductVo>  void replaceProduct(List<T> baseProductVos);
+
+
+    /**
+     * 获取列表
+     * @return
+     */
+    List<? extends BaseProductVo>  listProduct();
 
     /**
      * 根据用户标签，匹配商品标签

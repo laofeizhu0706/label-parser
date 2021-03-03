@@ -93,8 +93,18 @@ public class DefaultRecommendService implements IRecommendService {
     }
 
     @Override
-    public <T extends BaseProductVo> void addProductLabel(List<T> baseProductVos) {
+    public <T extends BaseProductVo> void addProduct(List<T> baseProductVos) {
 
+    }
+
+    @Override
+    public <T extends BaseProductVo> void replaceProduct(List<T> baseProductVos) {
+
+    }
+
+    @Override
+    public List<? extends BaseProductVo> listProduct() {
+        return null;
     }
 
     @Override
