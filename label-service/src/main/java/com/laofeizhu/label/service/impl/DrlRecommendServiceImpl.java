@@ -148,8 +148,8 @@ public class DrlRecommendServiceImpl implements RecommendService {
             Map<String, LabelProduct> productMap = products.stream().collect(Collectors.toMap(LabelProduct::getId, v->v));
             for (IRecommendService recommendService : productRecommendServices) {
                 List<TempProduct> productList = (List<TempProduct>) recommendService.listProduct();
+                boolean isReplace = false;
                 if (CollectionUtil.isNotEmpty(productList)) {
-                    boolean isReplace = false;
                     if (productMap.size() != productList.size()) {
                         isReplace = true;
                     } else {
@@ -166,20 +166,19 @@ public class DrlRecommendServiceImpl implements RecommendService {
                             }
                         }
                     }
-                    if (isReplace) {
-                        log.info("===================== replace all product =====================");
-                        recommendService.replaceProduct(products.stream().map(o -> {
-                            TempProduct tempProduct = new TempProduct();
-                            tempProduct.setTitle(o.getName());
-                            tempProduct.setProductId(o.getProductId());
-                            tempProduct.setId(o.getId());
-                            tempProduct.setLabels(Lists.newArrayList(o.getLabelName().split(",")));
-                            return tempProduct;
-                        }).collect(Collectors.toList()));
-                    }
-
                 } else {
-                    recommendService.replaceProduct(Lists.newArrayList());
+                    isReplace = true;
+                }
+                if (isReplace) {
+                    log.info("===================== replace all product =====================");
+                    recommendService.replaceProduct(products.stream().map(o -> {
+                        TempProduct tempProduct = new TempProduct();
+                        tempProduct.setTitle(o.getName());
+                        tempProduct.setProductId(o.getProductId());
+                        tempProduct.setId(o.getId());
+                        tempProduct.setLabels(Lists.newArrayList(o.getLabelName().split(",")));
+                        return tempProduct;
+                    }).collect(Collectors.toList()));
                 }
 
             }
